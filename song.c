@@ -21,13 +21,33 @@ struct song_node * insert_front(struct song_node *list, char *song, char *musici
 }
 
 struct song_node * insert_alpha(struct song_node *list, char *song, char *musician) {
-  while (list){
-    if (strcmp(musician, list->artist) == 0)
-      while(list) {
-	if (strcmp
-      break;
-    list = list->next;
-  }
+  /* struct song_node *old = list; */
+  /* while (list){ */
+  /*   if (strcmp(list->next->artist, musician) > 0) */
+  /*     break; */
+  /*   else if (strcmp(musician, list->artist) == 0) */
+  /*     while(list) { */
+  /* 	if (strcmp(song, list->name) < 0) */
+  /* 	  break; */
+  /* 	list = list->next; */
+  /*     } */
+
+  /*   else {list = list->next;} */
+  /* } */
+  /* struct song_node *new = insert_front(list->next, song, musician); */
+  /* list->next = new; */
+  /* return old; */
+
+  if (strcmp(musician, list->artist) < 0)
+    return insert_front(list, song, artist);
+  while(list) {
+    struct song_node *temp = list->next;
+    if(strcmp(musician, temp->artist) < 0){
+      list->next = insert_front(list->next, song, musician);
+      return list;
+    }
+}
+
 
 
 struct song_node *free_list(struct song_node *list) {
