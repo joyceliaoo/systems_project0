@@ -182,7 +182,55 @@ int main(){
   printf("searching for JJ Lin (not in list) \n");
   print_songlist(search_artist("JJ Lin"));
 
+  printf("-----------------------\n");
 
+  printf("testing print_artist \n");
 
+  add_song("Lego House", "Ed Sheeran");
+  add_song("Perfect", "Ed Sheeran");
+
+  printf("Library: \n");
+  print_all();
+
+  printf("printing all songs by Ed Sheeran: \n");
+  print_artist("Ed Sheeran");
+
+  printf("printing all songs by Carly Rae Jepsen: \n");
+  print_artist("Carly Rae Jepsen");
+
+  printf("printing all songs by G.E.M. \n");
+  print_artist("G.E.M.");
+
+  printf("-----------------------\n");
+
+  printf("testing shuffle \n");
+
+  shuffle();
+
+  printf("-----------------------\n");
+
+  printf("testing delete_song \n");
+
+  printf("removing Perfect by Ed Sheeran: \n");
+  delete_song("Perfect", "Ed Sheeran");
+  printf("Library: \n");
+  print_all();
+
+  printf("removing Say Something by Justin Timberlake: \n");
+  delete_song("Say Something", "Justin Timberlake");
+  printf("Library: \n");
+  print_all();
+
+  printf("removing Just Dance by Lady Gaga (not in library): \n");
+  delete_song("Just Dance", "Lady Gaga");
+  printf("Library: \n");
+  print_all();
+
+  printf("-----------------------\n");
+
+  printf("clear library! \n");
+  clear_library();
+  printf("Library: \n");
+  print_all();
   return 0;
 }

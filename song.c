@@ -73,15 +73,18 @@ struct song_node *find_one(struct song_node *list, char *song, char *musician){
 }
 
 struct song_node *remove_song(struct song_node *list, char *song){
-  if (strcmp(song, list->name) == 0)
-    return list->next;
-  struct song_node *current = list;
-  struct song_node *temp;
-  while(current->next) {
-    temp = current->next;
-    if (strcmp(song, temp->name) == 0)
-      current->next = temp->next;
-    current = current->next;
+  if (list) {
+    if (strcmp(song, list->name) == 0)
+      return list->next;
+    struct song_node *current = list;
+    struct song_node *temp;
+    while(current->next) {
+      temp = current->next;
+      if (strcmp(song, temp->name) == 0)
+        current->next = temp->next;
+      else
+        current = current->next;
+    }
   }
   return list;
 }

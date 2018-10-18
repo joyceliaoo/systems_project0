@@ -9,6 +9,7 @@ void print_artist(char *musician);
 void print_all();
 void delete_song();
 void shuffle();
+void clear_library();
 
 int get_index(char *musician); //helper
 
