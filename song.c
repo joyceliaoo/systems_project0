@@ -1,15 +1,24 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <time.h>
 #include "song.h"
 
-void print_song(struct song_node  *target){
-  struct song_node *current = target;
-  while (current){
-    printf("song: %s by %s \n", current->name, current->artist);
-    current = current->next;
+void print_song(struct song_node *song) {
+    printf("song: %s by %s \n", song->name, song->artist);
+}
+
+void print_songlist(struct song_node *target){
+  if (!target)
+    printf("list is empty or does not exist! \n");
+  else{
+    struct song_node *current = target;
+    while (current){
+      print_song(current);
+      current = current->next;
+    }
+    printf("[end] \n");
   }
-  printf("[end] \n");
 }
 
 struct song_node * insert_front(struct song_node *list, char *song, char *musician){
@@ -21,34 +30,79 @@ struct song_node * insert_front(struct song_node *list, char *song, char *musici
 }
 
 struct song_node * insert_alpha(struct song_node *list, char *song, char *musician) {
-  /* struct song_node *old = list; */
-  /* while (list){ */
-  /*   if (strcmp(list->next->artist, musician) > 0) */
-  /*     break; */
-  /*   else if (strcmp(musician, list->artist) == 0) */
-  /*     while(list) { */
-  /* 	if (strcmp(song, list->name) < 0) */
-  /* 	  break; */
-  /* 	list = list->next; */
-  /*     } */
-
-  /*   else {list = list->next;} */
-  /* } */
-  /* struct song_node *new = insert_front(list->next, song, musician); */
-  /* list->next = new; */
-  /* return old; */
-
-  if (strcmp(musician, list->artist) < 0)
-    return insert_front(list, song, artist);
-  while(list) {
+  if (!list || strcmp(musician, list->artist) < 0)
+    return insert_front(list, song, musician);
+  struct song_node *original = list;
+  while(list->next) {
     struct song_node *temp = list->next;
-    if(strcmp(musician, temp->artist) < 0){
-      list->next = insert_front(list->next, song, musician);
-      return list;
+    if(strcmp(musician, temp->artist) <= 0)
+      break;
+    else if(strcmp(musician, temp->artist) == 0) {
+      while(list->next) {
+        if (strcmp(song, list->next->name) < 0)
+          break;
+        list = list->next;
+      }
     }
+    else {list = list->next;}
+    }
+    list->next = insert_front(list->next, song, musician);
+    return original;
 }
 
+struct song_node *find_first(struct song_node *list, char *musician){
+  while (list) {
+    if (strcmp(musician, list->artist) == 0)
+      return list;
+    list = list->next;
+  }
+  return NULL;
+}
 
+struct song_node *find_one(struct song_node *list, char *song, char *musician){
+  struct song_node *to_artist = find_first(list, musician);
+  while (to_artist){
+    if (strcmp(song, to_artist->name) == 0)
+      return to_artist;
+    to_artist = to_artist->next;
+  }
+  return NULL;
+}
+
+struct song_node *remove_song(struct song_node *list, char *song){
+  if (strcmp(song, list->name) == 0)
+    return list->next;
+  struct song_node *current = list;
+  struct song_node *temp;
+  while(current->next) {
+    temp = current->next;
+    if (strcmp(song, temp->name) == 0)
+      current->next = temp->next;
+    current = current->next;
+  }
+  return list;
+}
+
+int list_length(struct song_node *list) {
+  int c = 0;
+  while(list) {
+    c++;
+    list = list->next;
+  }
+  return c;
+}
+
+struct song_node *random_song(struct song_node *list){
+  srand(time(NULL));
+  int ran = rand();
+  //printf("%d \n", ran);
+  ran = ran % list_length(list);
+  while (ran) {
+    list = list->next;
+    ran--;
+  }
+  return list;
+}
 
 struct song_node *free_list(struct song_node *list) {
   struct song_node *current = list;

@@ -8,7 +8,8 @@ struct song_node{
   struct song_node *next;
 };
 
-void print_song(struct song_node *target);
+void print_song(struct song_node *song);
+void print_songlist(struct song_node *list);
 struct song_node *insert_front(struct song_node *list, char *song, char *musician);
 struct song_node *insert_alpha(struct song_node *list, char *song, char *musician);
 struct song_node *find_one(struct song_node *list, char *song, char *musician);
