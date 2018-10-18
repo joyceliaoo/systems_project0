@@ -3,12 +3,13 @@
 #include <string.h>
 #include <time.h>
 #include "song.h"
+#include "library.h"
 
 int main(){
 
   printf("==========linkedlist functions==========\n");
 
-  printf("testing insert_front \n");
+  printf("testing insert_front and print_songlist \n");
   struct song_node *list0 = NULL;
 
   printf("first insertion: \n");
@@ -21,9 +22,14 @@ int main(){
 
   printf("-----------------------\n");
 
+  printf("testing print_song \n");
+  print_song(list0);
+
+  printf("-----------------------\n");
+
   printf("testing insert_alpha \n");
 
-  struct song_node *list1;
+  struct song_node *list1 = NULL;
 
   printf("first insertion: \n");
   list1 = insert_front(list1,"Yellow Submarine", "The Beatles");
@@ -52,10 +58,10 @@ int main(){
   printf("pointing to first song by LMFAO:\n");
   print_songlist(find_first(list1, "LMFAO"));
 
-  printf("pointing to first song by The Beatles:\n ");
+  printf("pointing to first song by The Beatles:\n");
   print_songlist(find_first(list1, "The Beatles"));
 
-  printf("potinting to first song by Taylor Swift: \n");
+  printf("pointing to first song by Taylor Swift: \n");
   print_songlist(find_first(list1, "Taylor Swift \n"));
 
   printf("-----------------------\n");
@@ -79,31 +85,104 @@ int main(){
   list1 = remove_song(list1, "Party Rock Anthem");
   print_songlist(list1);
 
-  printf("removing Try by Jay Chou \n");
+  printf("removing Try by Jay Chou (not in list) \n");
   list1 = remove_song(list1, "Try");
   print_songlist(list1);
 
   printf("-----------------------\n");
 
+  list1 = insert_alpha(list1, "Lego House", "Ed Sheeran");
+  list1 = insert_alpha(list1, "Worth It", "Fifth Harmony");
+  list1 = insert_alpha(list1, "Never Enough", "Loren Allred");
+
   printf("testing random_song\n");
 
   srand(time(NULL));
 
-  int i;
+  int i = 3;
   while (i) {
-    printf("trial %d: \n", 5-i);
-    print_songlist(random_song(list1));
+    printf("Here's our pick: \n");
+    print_song(random_song(list1));
     i--;
   }
 
   printf("-----------------------\n");
 
-  printf("testing length function \n");
+  printf("testing list_length (helper) \n");
 
-  /* printf("free list \n"); */
+  printf("There are %d songs in this playlist: \n", list_length(list0));
+  print_songlist(list0);
 
-  /* head = free_list(head); */
-  /* print_song(head); */
+  printf("-----------------------\n");
+
+  printf("tesing free_list \n"); 
+
+  printf("after freeing list0: \n");
+  list0 = free_list(list0); 
+  print_songlist(list0);
+
+  printf("after freeing list1: \n");
+  list1 = free_list(list1);
+  print_songlist(list1); 
+
+  printf("==========music library functions==========\n");
+
+  printf("testing get_index (helper) \n");
+  printf("Shawn Mendes goes in slot %d \n", get_index("Shawn Mendes"));
+  printf("Katy Perry goes in slot %d \n", get_index("Katy Perry"));
+  printf("5 Seconds of Summer goes in slot %d \n", get_index("5 Seconds of Summer"));
+
+  printf("-----------------------\n");
+
+  printf("testing print_all and add_song \n");
+
+  printf("Adding Never Be the Same by Camila Cabello: \n");
+  add_song("Never Be the Same", "Camila Cabello");
+  print_all();
+
+  printf("Adding Say Something by Justin Timberlake: \n");
+  add_song("Say Something", "Justin Timberlake");
+  print_all();
+
+  printf("Adding Call Me Maybe by Carly Rae Jepsen: \n");
+  add_song("Call Me Maybe", "Carly Rae Jepsen");
+  print_all();
+
+  printf("Adding Amnesia by 5 Seconds of Summer: \n");
+  add_song("Amnesia", "5 Seconds of Summer");
+  print_all();
+
+  printf("-----------------------\n");
+
+  printf("testing print_alpha (entries under specific letter) \n");
+
+  printf("Artists in J list: \n");
+  print_alpha('J');
+
+  printf("Artists in non-letter list: \n");
+  print_alpha('#');
+
+  printf("-----------------------\n");
+
+  printf("testing search_song \n");
+
+  printf("Looking for Never Be the Same by Camila Cabello: \n");
+  print_song(search_song("Never Be the Same", "Camila Cabello"));
+
+  printf("Looking for Hello by Adele: \n");
+  print_song(search_song("Hello", "Adele"));
+
+  printf("-----------------------\n");
+
+  printf("testing search_artist \n");
+
+  printf("searching for Camila Cabello: \n");
+  print_songlist(search_artist("Camila Cabello"));
+
+  printf("searching for JJ Lin (not in list) \n");
+  print_songlist(search_artist("JJ Lin"));
+
+
 
   return 0;
 }

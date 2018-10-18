@@ -5,19 +5,22 @@
 #include "song.h"
 
 void print_song(struct song_node *song) {
-    printf("song: %s by %s \n", song->name, song->artist);
+    if (song)
+      printf("song: %s by %s \n", song->name, song->artist);
+    else
+      printf("song is not in library \n");
 }
 
 void print_songlist(struct song_node *target){
   if (!target)
-    printf("list is empty or does not exist! \n");
+    printf("list is empty or target does not exist! \n");
   else{
     struct song_node *current = target;
     while (current){
       print_song(current);
       current = current->next;
     }
-    printf("[end] \n");
+    printf("--- \n");
   }
 }
 
@@ -92,11 +95,9 @@ int list_length(struct song_node *list) {
   return c;
 }
 
-
-
 struct song_node *random_song(struct song_node *list){
   int ran = rand();
-  printf("%d \n", ran);
+  //printf("%d \n", ran);
   ran = ran % list_length(list);
   while (ran) {
     list = list->next;

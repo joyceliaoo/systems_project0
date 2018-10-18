@@ -7,6 +7,9 @@ struct song_node *search_artist(char *musician);
 void print_alpha(char letter);
 void print_artist(char *musician);
 void print_all();
+void delete_song();
 void shuffle();
+
+int get_index(char *musician); //helper
 
 #endif
