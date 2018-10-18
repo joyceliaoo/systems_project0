@@ -92,10 +92,11 @@ int list_length(struct song_node *list) {
   return c;
 }
 
+
+
 struct song_node *random_song(struct song_node *list){
-  srand(time(NULL));
   int ran = rand();
-  //printf("%d \n", ran);
+  printf("%d \n", ran);
   ran = ran % list_length(list);
   while (ran) {
     list = list->next;

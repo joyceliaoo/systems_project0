@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <time.h>
 #include "song.h"
 
 int main(){
@@ -20,7 +21,7 @@ int main(){
 
   printf("-----------------------\n");
 
-  printf("testing insert_alpha");
+  printf("testing insert_alpha \n");
 
   struct song_node *list1;
 
@@ -86,11 +87,18 @@ int main(){
 
   printf("testing random_song\n");
 
+  srand(time(NULL));
+
+  int i;
   while (i) {
     printf("trial %d: \n", 5-i);
     print_songlist(random_song(list1));
     i--;
   }
+
+  printf("-----------------------\n");
+
+  printf("testing length function \n");
 
   /* printf("free list \n"); */
 
