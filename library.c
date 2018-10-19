@@ -6,6 +6,7 @@
 
 struct song_node *lib[27];
 
+//identity the slot in array that corresponds to first letter of artist's name
 int get_index(char *musician) {
 	char temp[100];
 	strcpy(temp, musician);
