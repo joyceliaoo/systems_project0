@@ -89,6 +89,8 @@ struct song_node *remove_song(struct song_node *list, char *song){
   return list;
 }
 
+
+//helper function to get the number of songs in the list
 int list_length(struct song_node *list) {
   int c = 0;
   while(list) {
